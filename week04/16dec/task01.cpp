@@ -1,38 +1,45 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-string decideActivity(string t, string h);
-
+string VolumeOfPyramid(float, float, float, string);
 int main()
 {
-    string temperature, humidity;
-    cout << "Enter temperature(warm/cold): ";
-    cin >> temperature;
-    cout << "Enter humidity(dry/humid): ";
-    cin >> humidity;
-
-    cout << "Recommended activity: ";
-    decideActivity(temperature, humidity);
-    return 0;
+    float length, width, height;
+    string units;
+    cout << "Enter the length of pyramid (in meters): ";
+    cin >> length;
+    cout << "Enter the width of pyramid(in meters): ";
+    cin >> width;
+    cout << "Enter the height of pyramid(in meters): ";
+    cin >> height;
+    cout << "Enter the desired output unit(millimeters, centimeters, meters, kilometers): ";
+    cin >> units;
+    string result = VolumeOfPyramid(length, width, height, units);
+    cout << result;
 }
 
-string decideActivity(string t, string h)
+string VolumeOfPyramid(float length, float width, float height, string units)
 {
-    if (t == "warm" && h == "dry")
+    float volume = (length * width * height) / 3;
+
+    if (units == "millimeters")
     {
-        cout << "Play tennis";
+        volume *= 1000 * 1000 * 1000;
+        units = "mm^3";
     }
-    if (t == "warm" && h == "humid")
+    else if (units == "centimeters")
     {
-        cout << "Swim";
+        volume *= 1000 * 1000;
+        units = "cm^3";
     }
-    if (t == "cold" && h == "dry")
+    else if (units == "meters")
     {
-        cout << "Play basketball";
+        units = "m^3";
     }
-    if (t == "cold" && h == "humid")
+    else if (units == "kilometers")
     {
-        cout << "Watch TV";
+        volume /= 1000 * 1000 * 1000;
+        units = "km^3";
     }
+    return "The volume of the pyramid is " + to_string(volume) + " " + units;
 }
